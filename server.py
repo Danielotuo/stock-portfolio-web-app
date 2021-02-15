@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import requests
 
 app = Flask(__name__)
@@ -22,7 +22,6 @@ def home():
     return "This is the home page. Try going to /stocks/AAPL"
 
 @app.route('/stocks/<ticker>')
-def stock(ticker):
+def view_stock(ticker):
     stock_price = fetch_price(ticker)
-    return "The price of {} is {}".format(ticker, stock_price)
-
+    return render_template('stock_quote.html', ticker=ticker, stock_price=stock_price)
